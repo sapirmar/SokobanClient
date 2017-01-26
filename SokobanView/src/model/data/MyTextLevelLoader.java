@@ -7,6 +7,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import model.items.Destination_Box;
+import model.items.Items;
+
 public class MyTextLevelLoader implements LevelLoader {
 	private int max_line;
 	private int count_line;

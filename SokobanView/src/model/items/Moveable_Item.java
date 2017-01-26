@@ -1,21 +1,27 @@
-package model.data;
+package model.items;
+
+import model.data.Level2D;
+import model.data.Position;
+import model.data.Level;
+
+
 public class Moveable_Item extends Items{
 
 
-		
+
 	public Moveable_Item(Position p) {
 		super(p);
-	
+
 	}
 	public Moveable_Item() {
 		super();
-		
+
 	}
 	public Moveable_Item(Moveable_Item itm){
 		super(itm);
 	}
 	//get/set
-	
+
 	//function move , update the position , the level and the array-lists
 	public void move(Position old_p,Position new_p,Level2D level)
 	{
@@ -29,7 +35,7 @@ public class Moveable_Item extends Items{
 			level.dest_boxes.add(db);
 			//if this on target an the next on target too.
 			if(level.warehouse[new_p.getI()][new_p.getJ()].p.getFlagDestination()==true)
-			{ 
+			{
 				for(int i=0;i<level.dest_boxes.size();i++){
 				if(level.dest_boxes.get(i).p==new_p)
 				{
@@ -54,7 +60,7 @@ public class Moveable_Item extends Items{
 							level.boxes.get(j).p.setPosition(new_p.getI(), new_p.getJ());
 						}
 					}
-				
+
 			}
 			}
 			else// if this on target and the next is space
@@ -85,10 +91,10 @@ public class Moveable_Item extends Items{
 							level.boxes.get(i).p.setPosition(new_p.getI(), new_p.getJ());
 						}
 					}
-					
+
 				}
-				
-				
+
+
 			}
 		}
 		else // if this not on target
@@ -96,8 +102,8 @@ public class Moveable_Item extends Items{
 			Space space=new Space(old_p);
 			level.warehouse[old.getI()][old.getJ()]=space;
 			level.spaces.add(space);
-			
-			
+
+
 			//if this is not on target and the next on target
 			if(level.warehouse[new_p.getI()][new_p.getJ()].getP().getFlagDestination())
 			{
@@ -118,7 +124,7 @@ public class Moveable_Item extends Items{
 					{
 						level.actors.get(j).p.setPosition(new_p.getI(),new_p.getJ());
 					}
-					
+
 				}
 			}
 			else //if this not on target and the next not on target
@@ -154,11 +160,11 @@ public class Moveable_Item extends Items{
 							level.boxes.get(j).p.setPosition(new_p.getI(), new_p.getJ());
 						}
 					}
-					
+
 				}
 			}
 		}
-		
+
 	}
 	public void move_up(Level2D level)
 	{
@@ -173,7 +179,7 @@ public class Moveable_Item extends Items{
 			Position b=new Position(level.warehouse[p.getI()-1][p.getJ()].p);
 			((Box)level.warehouse[p.getI()-1][p.getJ()]).move(b, level.warehouse[p.getI()-2][p.getJ()].p, level);
 			move(a, level.warehouse[p.getI()-1][p.getJ()].p, level);
-			
+
 		}
 	}
 	public void move_down(Level2D level)
@@ -189,7 +195,7 @@ public class Moveable_Item extends Items{
 			Position b=new Position(level.warehouse[p.getI()+1][p.getJ()].p);
 			((Box)level.warehouse[p.getI()+1][p.getJ()]).move(b, level.warehouse[p.getI()+2][p.getJ()].p, level);
 			move(a, level.warehouse[p.getI()+1][p.getJ()].p, level);
-			
+
 		}
 	}
 	public void move_right(Level2D level)
@@ -205,7 +211,7 @@ public class Moveable_Item extends Items{
 			Position b=new Position(level.warehouse[p.getI()][p.getJ()+1].p);
 			((Box)level.warehouse[p.getI()][p.getJ()+1]).move(b, level.warehouse[p.getI()][p.getJ()+2].p, level);
 			move(a, level.warehouse[p.getI()][p.getJ()+1].p, level);
-			
+
 		}
 	}
 	public void move_left(Level2D level)
@@ -221,10 +227,10 @@ public class Moveable_Item extends Items{
 			Position b=new Position(level.warehouse[p.getI()][p.getJ()-1].p);
 			((Box)level.warehouse[p.getI()][p.getJ()-1]).move(b, level.warehouse[p.getI()][p.getJ()-2].p, level);
 			move(a, level.warehouse[p.getI()][p.getJ()-1].p, level);
-			
+
 		}
-		
+
 	}
-	
+
 
 }

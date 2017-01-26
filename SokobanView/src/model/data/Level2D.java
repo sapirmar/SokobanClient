@@ -2,6 +2,8 @@ package model.data;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+import model.items.Items;
+
 public class Level2D extends Level {
 	public Items[][] warehouse;
 	private int row;

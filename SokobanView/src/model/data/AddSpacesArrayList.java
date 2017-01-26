@@ -1,5 +1,7 @@
 package model.data;
 
+import model.items.Items;
+import model.items.Space;
 
 public class AddSpacesArrayList implements IAddArrayList {
 

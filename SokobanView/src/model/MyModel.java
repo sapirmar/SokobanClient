@@ -13,7 +13,6 @@ import model.data.ILevelCreator;
 import model.data.IlevelSaverCreator;
 import model.data.Level;
 import model.data.Level2D;
-import model.data.Moveable_Item;
 import model.data.MyObjectLevelLoder;
 import model.data.MyObjectSaver;
 import model.data.MyTextLevelLoader;
@@ -26,6 +25,7 @@ import model.data.TextLevelCreator;
 import model.data.TextLevelSaverCreator;
 import model.data.XmlLevelCreator;
 import model.data.XmlSaverCreator;
+import model.items.Moveable_Item;
 import model.policy.MySokobanPolicy;
 
 public class MyModel extends Observable implements Model {

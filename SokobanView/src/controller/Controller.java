@@ -5,6 +5,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import controller.command.Command;
+
 public class Controller extends Observable{
 	private BlockingQueue<Command> queue;
 	private boolean isStopped=false;
@@ -41,10 +43,12 @@ public class Controller extends Observable{
 		});
 		thread.start();
 
+
 	}
 	public void stop(){
 		isStopped=true;
-		System.exit(0);
+		//thread.stop();
+		//System.exit(0);
 	}
 }
 

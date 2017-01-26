@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 
 
 public class Main extends Application {
+	private Controller controller;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -25,6 +26,8 @@ public class Main extends Application {
 			MainWindowController view = loader.getController();
 			MyModel model= new MyModel();
 			//Controller controller=new Controller();
+
+			//get the args from the main
 			List<String> args=getParameters().getRaw();
 			if(args.size()>1)
 			{
@@ -32,6 +35,7 @@ public class Main extends Application {
 				MyClientHandler mch = new MyClientHandler();///////////
 				int port = Integer.parseInt(args.get(1));//////////////////
 				MyServer server =  new MyServer(port, mch);///////////
+				controller=new Controller();//
 
 				SokobanController sokoban_controller=new SokobanController(model, view, server);
 				model.addObserver(sokoban_controller);

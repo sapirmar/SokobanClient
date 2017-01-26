@@ -1,4 +1,8 @@
-package model.data;
+package model.items;
+
+import model.data.Level2D;
+import model.data.Position;
+
 public class Box extends Moveable_Item {
 public Box() {
 	super();

@@ -1,6 +1,6 @@
-package model.data;
+package model.items;
 
-
+import model.data.ICreator;
 
 public class SpaceCreator implements ICreator {
 

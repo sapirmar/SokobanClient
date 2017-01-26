@@ -1,4 +1,7 @@
-package model.data;
+package model.items;
+
+import model.data.Position;
+
 public class Wall extends Items {
 	public Wall() {
 		super();

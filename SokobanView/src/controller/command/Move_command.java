@@ -1,4 +1,4 @@
-package controller;
+package controller.command;
 
 import model.Model;
 import model.data.Level2D;
@@ -19,7 +19,7 @@ public class Move_command extends Command {
 	public void execute() {
 		String direction=params.remove(0);
 		model.move(direction);
-		//this.view.addStep();
+		this.view.addStep();
 		this.view.winLevel();
 
 	}

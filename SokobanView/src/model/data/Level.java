@@ -2,14 +2,21 @@ package model.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import model.items.Actor;
+import model.items.Box;
+import model.items.Destination_Box;
+import model.items.Items;
+import model.items.Space;
+import model.items.Wall;
+
 
 public class Level implements Serializable{
-	ArrayList<Box> boxes;
-	ArrayList<Wall> walls;
-	ArrayList<Actor> actors;
-	ArrayList<Destination_Box> dest_boxes;
-	ArrayList<Space> spaces;
-	ArrayList<Items> items;
+	public ArrayList<Box> boxes;
+	public ArrayList<Wall> walls;
+	public ArrayList<Actor> actors;
+	public ArrayList<Destination_Box> dest_boxes;
+	public ArrayList<Space> spaces;
+	public ArrayList<Items> items;
 
 
 

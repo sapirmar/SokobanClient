@@ -1,12 +1,12 @@
 package model.policy;
 
-import model.data.Actor;
-import model.data.Box;
 import model.data.Level;
 import model.data.Level2D;
-import model.data.Moveable_Item;
 import model.data.Position;
-import model.data.Wall;
+import model.items.Actor;
+import model.items.Box;
+import model.items.Moveable_Item;
+import model.items.Wall;
 
 
 

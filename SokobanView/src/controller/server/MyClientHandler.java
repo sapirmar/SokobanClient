@@ -24,7 +24,7 @@ public MyClientHandler() {
 	public void handleClient(InputStream informClient, OutputStream outToClient) {
 	reader = new BufferedReader(new InputStreamReader(informClient));
 	writer= new PrintWriter(outToClient);
-	writer.print("menu: \n-load+file name\n-save+file name\n-move up/down/right/left\n-exit");
+	writer.print("menu: \n-load+file name\n-save+file name\n-move up/down/right/left \n-exitgame\n ");
 	writer.flush();
 	do{
 	try {
@@ -39,8 +39,11 @@ public MyClientHandler() {
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
-	}while(!command.equals("exit"));
+	}while(!command.equals("exitgame"));
+	writer.write("bye");
+	writer.flush();
 	//params.add("exit");
+
 	//setChanged();
 	//notifyObservers(params);
 

@@ -1,5 +1,8 @@
 package model.data;
 
+import model.items.Items;
+import model.items.Wall;
+
 public class AddWallArrayList implements IAddArrayList{
 
 	

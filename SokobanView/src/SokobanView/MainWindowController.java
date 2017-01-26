@@ -1,9 +1,13 @@
 package SokobanView;
 
 
+import java.beans.XMLDecoder;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.ResourceBundle;
@@ -42,6 +46,7 @@ public class MainWindowController extends Observable implements Initializable ,V
 	private String userCommand;
 	 private Level2D level;
 	 private LinkedList<String> params;
+	 private HashMap<String, String> hm;
 	 private StringProperty count_steps;
 	 private StringProperty count_time;
 	 private StringProperty show_if_win;
@@ -55,13 +60,15 @@ public class MainWindowController extends Observable implements Initializable ,V
 	 @FXML
 	 Text if_won;
 	 @FXML
-	 Label steps;
+	 Text steps;
 	 @FXML
 	 Label timer;
 	@FXML
 	SokobanDisplayer sk;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		hm=new HashMap<String,String>();
+		this.readKeysFromXML();
 		count =0;
 		time_count=0;
 		musicfile="./media/sokobansong.mp3";
@@ -84,7 +91,7 @@ public class MainWindowController extends Observable implements Initializable ,V
 		sk.addEventFilter(MouseEvent.MOUSE_CLICKED, (e)->sk.requestFocus());
 		sk.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
-			public void handle(KeyEvent event) {
+			public void handle(KeyEvent event) {/*
 				if (event.getCode()==KeyCode.UP)
 				{
 					params= new LinkedList<>();
@@ -138,11 +145,39 @@ public class MainWindowController extends Observable implements Initializable ,V
 					winLevel();
 
 				}
-			}
+			*/
+				if(level!=null)
+				{
+					userCommand=hm.get(""+event.getCode());
+					params= new LinkedList<>();
+					String []arr;
+					arr=userCommand.split(" ");
+					for (String string : arr) {
+						params.add(string);
+					}
+					setChanged();
+					notifyObservers(params);
+					//count++;
+					//count_steps.set("Steps: "+count);
+					//addStep();
+					winLevel();
+
+				}
+				}
 
 		});
 
 
+
+
+	}
+
+	public void initializeDefaultKeys()
+	{
+		hm.put("UP", "move up");
+		hm.put("DOWN", "move down");
+		hm.put("LEFT", "move left");
+		hm.put("RIGHT", "move right");
 
 	}
 	public void load()
@@ -245,6 +280,22 @@ public class MainWindowController extends Observable implements Initializable ,V
 		}, 0, 1000);
 
 	}
+	public void readKeysFromXML()
+	{
+		XMLDecoder xd;
+		try {
+			xd = new XMLDecoder(new FileInputStream(new File("./keys/defaultKeys.xml")));
+			hm.put((String) xd.readObject(), "move up");
+			hm.put( (String) xd.readObject(), "move down");
+			hm.put( (String) xd.readObject(), "move right");
+			hm.put( (String) xd.readObject(), "move left");
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 	public String getUserCommand() {
 		return userCommand;
 	}
@@ -279,7 +330,6 @@ public class MainWindowController extends Observable implements Initializable ,V
 	public void addStep() {
 		++count;
 		count_steps.set("Steps: "+getCount());
-
 
 	}
 	public int getCount() {

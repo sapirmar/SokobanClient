@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -26,7 +27,7 @@ public class MyServer {
 	}
 	private void runServer()throws Exception {
 		ServerSocket server=new ServerSocket(port);
-		server.setSoTimeout(100000000);
+		server.setSoTimeout(1000*60);
 
 		try{
 		Socket aClient=server.accept(); // blocking call
@@ -37,11 +38,16 @@ public class MyServer {
 		aClient.getInputStream().close();
 		aClient.getOutputStream().close();
 		aClient.close();
-		} catch (IOException e) {e.printStackTrace();}
+		} catch (IOException e) {
+			e.printStackTrace();
+			}
 		}
 		}).start();
-		}catch(SocketTimeoutException e) {e.printStackTrace();}
+		}catch(SocketTimeoutException e) {
+			e.printStackTrace();
+			}
 		server.close();
+
 		}
 
 	public void start(){
@@ -55,6 +61,7 @@ public class MyServer {
 		}
 		public void stop(){
 		stop=true;
+
 		}
 
 }

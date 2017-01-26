@@ -42,14 +42,15 @@
          <left>
             <VBox spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="steps" text="Steps:" underline="true">
-                     <font>
-                        <Font name="David" size="18.0" />
-                     </font></Label>
                   <Label fx:id="timer" lineSpacing="10.0" text="Timer:" underline="true">
                      <font>
                         <Font name="David" size="18.0" />
                      </font></Label>
+                  <Text fx:id="steps" strokeType="OUTSIDE" strokeWidth="0.0" text="Steps:">
+                     <font>
+                        <Font name="David" size="18.0" />
+                     </font>
+                  </Text>
                   <Button mnemonicParsing="false" onAction="#exit" text="Exit" textFill="#d30606">
                      <font>
                         <Font name="David Bold" size="18.0" />
@@ -67,7 +68,7 @@
             </VBox>
          </left>
          <center>
-            <SokobanDisplayer fx:id="sk" actorFilename="./resources/Actor.jpg" boxFilename="./resources/Box.jpg" destinationFilename="./resources/DestinationBox.jpg" height="500.0" wallFilename="./resources/Wall.jpg" width="500.0" BorderPane.alignment="CENTER" />
+            <SokobanDisplayer fx:id="sk" sokobanFilename="./resources/Sokoban.jpg" actorFilename="./resources/Actor.jpg" boxFilename="./resources/Box.jpg" destinationFilename="./resources/DestinationBox.jpg" wallFilename="./resources/Wall.jpg" height="500.0" width="500.0" BorderPane.alignment="CENTER" />
          </center>
          <bottom>
             <Text fx:id="if_won" fill="#0cc925" strokeType="OUTSIDE" strokeWidth="0.0" BorderPane.alignment="CENTER">

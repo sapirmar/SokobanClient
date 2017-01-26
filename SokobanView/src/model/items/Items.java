@@ -1,5 +1,7 @@
-package model.data;
+package model.items;
 import java.io.Serializable;
+
+import model.data.Position;
 
 public abstract class Items implements Serializable{
 	public Position p;

@@ -2,6 +2,12 @@ package model.data;
 
 import java.util.HashMap;
 
+import model.items.ActorCreator;
+import model.items.BoxCreator;
+import model.items.DestinationCreator;
+import model.items.SpaceCreator;
+import model.items.WallCreator;
+
 public class TextItemCreator {
 	
 	public HashMap<Character, ICreator> hm;

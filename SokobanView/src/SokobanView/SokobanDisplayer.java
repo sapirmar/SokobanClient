@@ -23,6 +23,8 @@ public class SokobanDisplayer extends Canvas {
 	private StringProperty actorFilename;
 	private StringProperty destinationFilename;
 	private StringProperty boxFilename;
+	private StringProperty sokobanFilename;//
+
 
 
 	public SokobanDisplayer() {
@@ -30,8 +32,12 @@ public class SokobanDisplayer extends Canvas {
 		actorFilename=new SimpleStringProperty();
 		destinationFilename=new SimpleStringProperty();
 		boxFilename=new SimpleStringProperty();
+		sokobanFilename = new SimpleStringProperty();//
+		level=new Level2D();
+		level.setWarehouse(null);
 
-		//maybe we need the charcter position
+
+
 	}
 	public void reDraw()
 	{
@@ -46,6 +52,7 @@ public class SokobanDisplayer extends Canvas {
 			Image actor=null;
 			Image destinationbox=null;
 			Image box=null;
+
 			try {
 
 				wall=new Image(new FileInputStream(wallFilename.get()));
@@ -87,6 +94,24 @@ public class SokobanDisplayer extends Canvas {
 
 
 		}
+		else if(level.getWarehouse()==null){
+
+			Image sokoban= null;//
+			try {
+
+				sokoban=new Image(new FileInputStream(sokobanFilename.get()));
+				GraphicsContext gc=getGraphicsContext2D();
+				gc.clearRect(0, 0, getWidth(), getHeight());
+				gc.drawImage(sokoban, 0, 0, getWidth(), getHeight());
+
+
+			} catch (FileNotFoundException e) {
+
+				e.printStackTrace();
+			}
+		}
+
+
 	}
 	public Level2D getLevel() {
 		return level;
@@ -127,5 +152,11 @@ public class SokobanDisplayer extends Canvas {
 	}
 	public void setBoxFilename(String boxFilename) {
 		this.boxFilename.set(boxFilename);
+	}
+	public String getSokobanFilename() {
+		return sokobanFilename.get();
+	}
+	public void setSokobanFilename(String sokobanFilename) {
+		this.sokobanFilename.set(sokobanFilename);
 	}
 }

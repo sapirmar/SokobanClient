@@ -1,5 +1,7 @@
 package model.data;
 
+import model.items.Actor;
+import model.items.Items;
 
 public class AddActorArrayList implements IAddArrayList {
 

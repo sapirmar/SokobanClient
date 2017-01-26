@@ -1,7 +1,7 @@
 package model.data;
 
-
-
+import model.items.Box;
+import model.items.Items;
 
 public class AddBoxArrayList implements IAddArrayList {
 

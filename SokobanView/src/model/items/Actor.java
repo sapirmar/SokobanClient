@@ -1,4 +1,6 @@
-package model.data;
+package model.items;
+
+import model.data.Position;
 
 public class Actor extends Moveable_Item {
 public Actor() {

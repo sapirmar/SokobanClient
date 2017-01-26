@@ -1,5 +1,7 @@
 package model.data;
 
+import model.items.Destination_Box;
+import model.items.Items;
 
 public class AddDestinationArrayList implements IAddArrayList {
 

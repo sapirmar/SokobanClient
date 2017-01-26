@@ -1,6 +1,6 @@
-package model.data;
+package model.items;
 
-
+import model.data.ICreator;
 
 public class BoxCreator implements ICreator {
 
