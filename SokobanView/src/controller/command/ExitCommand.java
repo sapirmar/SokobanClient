@@ -13,9 +13,10 @@ public class ExitCommand extends Command {
 	}
 	public void execute() {
 
-		if(myserver!=null)
-			myserver.stop();
+		//if(myserver!=null)
+		//	myserver.stop();
 		controller.stop();
+		if(myserver==null)
 		System.exit(0);
 
 

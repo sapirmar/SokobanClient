@@ -35,7 +35,7 @@ public class Main extends Application {
 				MyClientHandler mch = new MyClientHandler();///////////
 				int port = Integer.parseInt(args.get(1));//////////////////
 				MyServer server =  new MyServer(port, mch);///////////
-				controller=new Controller();//
+				this.controller=new Controller();//////////
 
 				SokobanController sokoban_controller=new SokobanController(model, view, server);
 				model.addObserver(sokoban_controller);

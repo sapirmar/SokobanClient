@@ -84,8 +84,8 @@ public class MainWindowController extends Observable implements Initializable ,V
 		if(level!=null){
 		sk.setLevel(level);
 		win=level.checkIfWin();
-
 		}
+		sk.reDraw();
 
 
 		sk.addEventFilter(MouseEvent.MOUSE_CLICKED, (e)->sk.requestFocus());

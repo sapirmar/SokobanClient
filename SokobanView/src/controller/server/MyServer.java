@@ -27,7 +27,7 @@ public class MyServer {
 	}
 	private void runServer()throws Exception {
 		ServerSocket server=new ServerSocket(port);
-		server.setSoTimeout(1000*60);
+		server.setSoTimeout(1000*6);
 
 		try{
 		Socket aClient=server.accept(); // blocking call
@@ -36,15 +36,16 @@ public class MyServer {
 		try {
 		ch.handleClient(aClient.getInputStream(), aClient.getOutputStream());
 		aClient.getInputStream().close();
-		aClient.getOutputStream().close();
-		aClient.close();
+		//aClient.getOutputStream().close();
+		//aClient.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 			}
 		}
 		}).start();
 		}catch(SocketTimeoutException e) {
-			e.printStackTrace();
+			System.out.println("closing server after time out");
+			//e.printStackTrace();
 			}
 		server.close();
 

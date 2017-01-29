@@ -28,13 +28,16 @@ public class SokobanDisplayer extends Canvas {
 
 
 	public SokobanDisplayer() {
+
 		wallFilename=new SimpleStringProperty();
 		actorFilename=new SimpleStringProperty();
 		destinationFilename=new SimpleStringProperty();
 		boxFilename=new SimpleStringProperty();
 		sokobanFilename = new SimpleStringProperty();//
-		level=new Level2D();
-		level.setWarehouse(null);
+		this.level=null;
+		
+		//level=new Level2D();
+		//level.setWarehouse(null);
 
 
 
@@ -42,19 +45,21 @@ public class SokobanDisplayer extends Canvas {
 	public void reDraw()
 	{
 
-		if(level.getWarehouse()!=null)
-		{
-			double W=getWidth();
-			double H=getHeight();
-			double w=W/level.getWarehouse()[0].length;
-			double h=H/level.getWarehouse().length;
+		//if(level!=null)
+		//{
+		//	double W=getWidth();
+		//	double H=getHeight();
+		//	double w=W/level.getWarehouse()[0].length;
+		//	double h=H/level.getWarehouse().length;
 			Image wall=null;
 			Image actor=null;
 			Image destinationbox=null;
 			Image box=null;
+			Image sokoban=null;
+			
 
 			try {
-
+				sokoban=new Image(new FileInputStream(sokobanFilename.get()));//////////
 				wall=new Image(new FileInputStream(wallFilename.get()));
 				actor=new Image(new FileInputStream(actorFilename.get()));
 				destinationbox= new Image(new FileInputStream(destinationFilename.get()));
@@ -62,8 +67,15 @@ public class SokobanDisplayer extends Canvas {
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
-
 			GraphicsContext gc=getGraphicsContext2D();
+			if(level!=null)
+			{
+				double W=getWidth();
+				double H=getHeight();
+				double w=W/level.getWarehouse()[0].length;
+				double h=H/level.getWarehouse().length;
+
+			//GraphicsContext gc=getGraphicsContext2D();
 			gc.clearRect(0, 0, W, H);
 
 			for(int i=0;i<level.warehouse.length;i++)
@@ -94,21 +106,13 @@ public class SokobanDisplayer extends Canvas {
 
 
 		}
-		else if(level.getWarehouse()==null){
-
-			Image sokoban= null;//
-			try {
-
-				sokoban=new Image(new FileInputStream(sokobanFilename.get()));
-				GraphicsContext gc=getGraphicsContext2D();
-				gc.clearRect(0, 0, getWidth(), getHeight());
-				gc.drawImage(sokoban, 0, 0, getWidth(), getHeight());
+		else {
 
 
-			} catch (FileNotFoundException e) {
+			gc.clearRect(0, 0, getWidth(), getHeight());
+			gc.drawImage(sokoban, 0, 0, getWidth(),getHeight());
 
-				e.printStackTrace();
-			}
+
 		}
 
 
