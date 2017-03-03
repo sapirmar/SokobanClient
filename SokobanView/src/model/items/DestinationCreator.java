@@ -1,7 +1,5 @@
 package model.items;
 
-import model.data.ICreator;
-
 public class DestinationCreator implements ICreator {
 
 

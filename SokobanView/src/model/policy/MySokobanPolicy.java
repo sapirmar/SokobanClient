@@ -49,7 +49,6 @@ public class MySokobanPolicy {
 	public Boolean moveByPolicy(Level2D level)
 	{
 		Position new_p=null;
-    	//System.out.println(level.getActors().get(0).getChar());
 		Position old_p=m_i.p;
 		Position final_p=null;
 		if(m_c.equals("move up"))

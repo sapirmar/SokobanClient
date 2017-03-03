@@ -41,7 +41,7 @@ public class Level implements Serializable{
 		this.dest_boxes=new ArrayList<Destination_Box>();
 		this.spaces=new ArrayList<Space>();
 		this.items=new ArrayList<Items>();
-
+//update all the arraylists
 		for(Box box: level.boxes)
 			this.boxes.add(new Box(new Position(box.p)));
 		for(Wall wall: level.walls)
@@ -105,8 +105,11 @@ public class Level implements Serializable{
 	public void setItems(ArrayList<Items> items) {
 		this.items = items;
 	}
+	
+	//check i win in the level
 	public boolean checkIfWin()
 	{
+		//check the flags of the boxes. if false: the not on target
 		for (Box box : boxes) {
 			if(box.ifOnDestination()==false)
 				return false;

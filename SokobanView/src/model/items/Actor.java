@@ -10,6 +10,7 @@ public Actor() {
 		super(p);
 		
 	}
+	//מייצג בקובץ טקסט
 	public char getChar()
 	{
 		return 'A';

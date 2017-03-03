@@ -5,6 +5,7 @@ import java.util.HashMap;
 import model.items.ActorCreator;
 import model.items.BoxCreator;
 import model.items.DestinationCreator;
+import model.items.ICreator;
 import model.items.SpaceCreator;
 import model.items.WallCreator;
 

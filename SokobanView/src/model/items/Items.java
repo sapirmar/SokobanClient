@@ -13,7 +13,6 @@ public abstract class Items implements Serializable{
 		this.p=p;
 		
 	}
-	//NEW!!!!!!!!!!!!!!!!!!!!!!!1
 	public Items(Items itm){
 		this.p=new Position(itm.getP());
 	}
@@ -24,6 +23,8 @@ public abstract class Items implements Serializable{
 	public void setP(Position p) {
 		this.p = p;
 	}
+	
+	//check the flag/ if true the item on target
 	public Boolean ifOnDestination()
 	{
 		if(p.getFlagDestination()==true)
@@ -31,6 +32,7 @@ public abstract class Items implements Serializable{
 		else 
 			return false;
 	}
+	//default char
 	public char getChar()
 	{
 		return '*';

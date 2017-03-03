@@ -30,9 +30,9 @@ public class Moveable_Item extends Items{
 		//if this on target
 		if(item.p.getFlagDestination()==true)
 		{
-			Destination_Box db=new Destination_Box(old_p);
-			level.warehouse[old_p.getI()][old_p.getJ()]=db;
-			level.dest_boxes.add(db);
+			Destination_Box db=new Destination_Box(old_p);// new target with the old position( because we were on target)
+			level.warehouse[old_p.getI()][old_p.getJ()]=db;// update warehouse
+			level.dest_boxes.add(db); // update arraylist
 			//if this on target an the next on target too.
 			if(level.warehouse[new_p.getI()][new_p.getJ()].p.getFlagDestination()==true)
 			{
@@ -41,19 +41,22 @@ public class Moveable_Item extends Items{
 				{
 					level.dest_boxes.remove(i);
 				}
-				this.p.setFlagDestination(true);
+				
+				this.p.setFlagDestination(true);// update the flag because on target
 				level.warehouse[new_p.getI()][new_p.getJ()]=this;
 				this.p.setPosition(new_p.getI(),new_p.getJ());
+				//if the move-item is  actor
 				if(this.getClass().equals(Actor.class))
-				for(int j=0;j<level.actors.size();j++)
+				for(int j=0;j<level.actors.size();j++)// update the array list
 				{
 					if(level.actors.get(j).p==old_p)
 					{
 						level.actors.get(j).p.setPosition(new_p.getI(), new_p.getJ());
 					}
 				}
+				//if the move item is box
 				if(this.getClass().equals(Box.class))
-					for(int j=0;j<level.boxes.size();j++)
+					for(int j=0;j<level.boxes.size();j++)// update the array list
 					{
 						if(level.boxes.get(j).p==old_p)
 						{
@@ -65,7 +68,7 @@ public class Moveable_Item extends Items{
 			}
 			else// if this on target and the next is space
 			{
-				this.p.setFlagDestination(false);
+				this.p.setFlagDestination(false);// update the flag because the next not on target
 				for(int j=0;j<level.spaces.size();j++){
 					if(level.spaces.get(j).p==new_p)
 					{

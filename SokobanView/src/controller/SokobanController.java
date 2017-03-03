@@ -73,7 +73,7 @@ public class SokobanController implements Observer {
 
 		if(params.size()>0){
 		String commandKey = params.remove(0);// remove the first word and put in commankey
-		Command c = commands.get(commandKey);
+		Command c = commands.get(commandKey);//יצירת הקומנד באמצעות המחרוזת
 
 		if(c==null)
 		{

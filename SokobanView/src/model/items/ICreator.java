@@ -1,6 +1,4 @@
-package model.data;
-
-import model.items.Items;
+package model.items;
 
 public interface ICreator {
 	public Items create();
