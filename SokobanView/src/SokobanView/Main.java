@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
+//-Djava.library.path=".\libs"
 
 public class Main extends Application {
 	private Controller controller;
@@ -49,16 +50,7 @@ public class Main extends Application {
 				model.addObserver(sokoban_controller);
 				view.addObserver(sokoban_controller);
 			}
-			//MyClientHandler mch = new MyClientHandler();///////////
-			//int port = 1337;//////////////////
-			//MyServer server =  new MyServer(port, mch);///////////
-			//server.start();
-			//SokobanController sokoban_controller=new SokobanController(model, view, server);
 
-			//SokobanController sokoban_controller= new SokobanController(model, view);
-			//model.addObserver(sokoban_controller);
-			//view.addObserver(sokoban_controller);
-			//mch.addObserver(sokoban_controller);////////////////
 
 
 

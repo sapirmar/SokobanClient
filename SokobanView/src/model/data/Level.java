@@ -18,6 +18,9 @@ public class Level implements Serializable{
 	public ArrayList<Space> spaces;
 	public ArrayList<Items> items;
 
+	private String levelId;
+
+
 
 
 // default constructor
@@ -28,6 +31,7 @@ public class Level implements Serializable{
 		dest_boxes=new ArrayList<Destination_Box>();
 		spaces=new ArrayList<Space>();
 		items=new ArrayList<Items>();
+		
 
 
 
@@ -55,7 +59,10 @@ public class Level implements Serializable{
 		for(Items item:level.items)
 			this.items.add(item);
 
+		this.levelId=level.levelId;
+
 	}
+
 	//get/set
 
 	public ArrayList<Box> getBoxes() {
@@ -105,7 +112,7 @@ public class Level implements Serializable{
 	public void setItems(ArrayList<Items> items) {
 		this.items = items;
 	}
-	
+
 	//check i win in the level
 	public boolean checkIfWin()
 	{
@@ -115,6 +122,12 @@ public class Level implements Serializable{
 				return false;
 		}
 		return true;
+	}
+	public String getLevelId() {
+		return levelId;
+	}
+	public void setLevelId(String levelId) {
+		this.levelId = levelId ;
 	}
 
 

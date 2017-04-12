@@ -1,0 +1,24 @@
+<hibernate-configuration>
+	<session-factory>
+		<!-- Database connection settings -->
+		<property name="connection.driver_class">
+			com.microsoft.sqlserver.jdbc.SQLServerDriver
+		</property>
+		<!-- לוקל הוסט זה האי פי של הסרבר -->
+			<property name="connection.url">jdbc:sqlserver://localhost:1433;database=Sokoban;
+				integratedSecurity=true;
+			</property>
+			<!-- JDBC connection pool (use the built-in) -->
+			<property name="connection.pool_size">1</property>
+			<!-- SQL dialect -->
+			<property name="dialect">org.hibernate.dialect.SQLServer2012Dialect
+			</property>
+			<!-- Echo all executed SQL to stdout -->
+			<property name="show_sql">true</property>
+			<!-- השם שלה טבלה במפינג -->
+			<mapping class="db.User"></mapping>
+			<mapping class="db.LevelDb"></mapping>
+			<mapping class="db.Records"></mapping>
+			<mapping class="db.RecordsKey"></mapping>
+	</session-factory>
+</hibernate-configuration>

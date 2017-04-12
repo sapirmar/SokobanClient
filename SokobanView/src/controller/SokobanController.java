@@ -11,7 +11,12 @@ import controller.command.DisplayCommand;
 import controller.command.ExitCommand;
 import controller.command.LoadCommand;
 import controller.command.Move_command;
+import controller.command.RecordCommand;
 import controller.command.SaveCommand;
+import controller.command.SearchDbCommand;
+import controller.command.ShowDbCommand;
+import controller.command.ShowTableDifferentWindowCommand;
+import controller.command.SortDbCommand;
 import controller.server.MyServer;
 import view.View;
 import model.Model;
@@ -33,7 +38,7 @@ public class SokobanController implements Observer {
 	initCommands();
 	this.controller.start();
 
-	
+
 	}
 	public SokobanController(Model model ,View view,MyServer myserver) {
 	//this.controller=new Controller();
@@ -59,6 +64,11 @@ public class SokobanController implements Observer {
 		commands.put("save", new SaveCommand(model,params));
 		commands.put("exit",new ExitCommand(controller,myserver));
 		commands.put("exitgame",new ExitCommand(controller,myserver));
+		commands.put("record", new RecordCommand(model, params));
+		commands.put("sortdb", new SortDbCommand(model,view));
+		commands.put("showdb", new ShowDbCommand(view));
+		commands.put("tablewindow",new ShowTableDifferentWindowCommand(view, model));
+		commands.put("searchdb", new SearchDbCommand(model,view));
 	}
 
 
@@ -77,7 +87,7 @@ public class SokobanController implements Observer {
 
 		if(c==null)
 		{
-			//view.displayError("command not found \n ");
+			System.out.println("no command");
 			return;
 		}
 		c.setParams(params);

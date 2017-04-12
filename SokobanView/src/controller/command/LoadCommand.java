@@ -1,6 +1,7 @@
 package controller.command;
 
 import java.util.LinkedList;
+import java.util.regex.Pattern;
 
 import model.Model;
 import model.data.Level;
@@ -24,14 +25,6 @@ public class LoadCommand extends Command {
 		this.params=params;
 		if(this.params!=null)
 		this.filename=params.get(0);
-		//give us the 3 last letters indicate the type of file
-		//this.type=filename.substring(filename.length()-3);18.1
-
-		//load according to the type
-		//hm.put("txt",new TextLevelCreator());18.1
-		//hm.put("xml",new XmlLevelCreator());18.1
-		//hm.put("obj",new ObjectLevelCreator());18.1
-
 
 	}
 	public void execute() {
@@ -39,7 +32,7 @@ public class LoadCommand extends Command {
 	view.stopTimer();
 	filename=params.remove(0);
 	model.load_level(filename);
-	
+
 	this.view.startTimer();
 	}
 	public Level getLevel() {
@@ -55,17 +48,6 @@ public class LoadCommand extends Command {
 		this.filename = filename;
 	}
 
-//	public String getType() {
-	//	return type;
-	//}
-	//public void setType(String type) {
-		//this.type = type;
-	//}
-	//public HashMap<String, ILevelCreator> getHm() {
-	//	return hm;
-	//}
-	//public void setHm(HashMap<String, ILevelCreator> hm) {
-	//	this.hm = hm;
-	//}
+
 
 }

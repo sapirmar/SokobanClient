@@ -35,7 +35,7 @@ public class SokobanDisplayer extends Canvas {
 		boxFilename=new SimpleStringProperty();
 		sokobanFilename = new SimpleStringProperty();//
 		this.level=null;
-		
+
 		//level=new Level2D();
 		//level.setWarehouse(null);
 
@@ -45,18 +45,12 @@ public class SokobanDisplayer extends Canvas {
 	public void reDraw()
 	{
 
-		//if(level!=null)
-		//{
-		//	double W=getWidth();
-		//	double H=getHeight();
-		//	double w=W/level.getWarehouse()[0].length;
-		//	double h=H/level.getWarehouse().length;
 			Image wall=null;
 			Image actor=null;
 			Image destinationbox=null;
 			Image box=null;
 			Image sokoban=null;
-			
+
 
 			try {
 				sokoban=new Image(new FileInputStream(sokobanFilename.get()));//////////
@@ -126,13 +120,7 @@ public class SokobanDisplayer extends Canvas {
 		reDraw();
 
 	}
-	/*public char[][] getWarehouse() {
-		return warehouse;
-	}
-	public void setWarehouse(char[][] warehouse) {
-		this.warehouse = warehouse;
-	     reDraw();
-	}*/
+
 	public String getWallFilename() {
 		return wallFilename.get();
 	}
