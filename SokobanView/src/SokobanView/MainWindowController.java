@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -159,26 +160,7 @@ public class MainWindowController extends Observable implements Initializable, V
 
 		table = new TableView<RowDb>();
 
-		/*
-		table.setRowFactory(tv->{
-			TableRow<RowDb> row=new TableRow<>();
-			row.setOnMouseClicked(e->{
-				RowDb rowdata=row.getItem();
-				System.out.println(rowdata.getNickName());
 
-			});
-			return row;
-		});
-		/*table.addEventFilter(MouseEvent.MOUSE_CLICKED, e->table.requestFocus());
-		table.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-			//RowDb rowchose=table.getSelectionModel().getSelectedItem();
-
-
-			}
-		});*/
 
 
 
@@ -436,6 +418,9 @@ public class MainWindowController extends Observable implements Initializable, V
 				// TableView<RowDb> table2 = new TableView<RowDb>();
 				TableView<RowDb> table2 = new TableView<RowDb>();
 				List<RowDb> list = new ArrayList<RowDb>();
+				//Button ordertime = new Button("order by time");
+				//Button ordersteps = new Button("order by steps");
+
 
 				for (Records records : list_records) {
 					String[] split = records.toString().split(",");
@@ -447,19 +432,53 @@ public class MainWindowController extends Observable implements Initializable, V
 				for (RowDb rowDb : list) {
 					tabledata.add(rowDb);
 				}
-				table.setEditable(true);
+				table2.setEditable(true);
 				TableColumn<RowDb, String> column1 = new TableColumn<>("NickName");
 				column1.setCellValueFactory(new PropertyValueFactory<RowDb, String>("NickName"));
 				TableColumn<RowDb, String> column2 = new TableColumn<>("LevelID");
 				column2.setCellValueFactory(new PropertyValueFactory<RowDb, String>("LevelID"));
 				TableColumn<RowDb, String> column3 = new TableColumn<>("Steps");
 				column3.setCellValueFactory(new PropertyValueFactory<RowDb, String>("Steps"));
+				column3.setComparator(new Comparator<String>() {
+
+					@Override
+					public int compare(String o1, String o2) {
+					int r1=Integer.parseInt(o1);
+					int r2=Integer.parseInt(o2);
+					if(r1==r2)
+						return 0;
+					if(r1>r2)
+						return 1;
+					else
+						return -1;
+					}
+				});
 				TableColumn<RowDb, String> column4 = new TableColumn<>("Timer");
 				column4.setCellValueFactory(new PropertyValueFactory<RowDb, String>("Timer"));
+				column4.setComparator(new Comparator<String>() {
 
+					@Override
+					public int compare(String o1, String o2) {
+					int r1=Integer.parseInt(o1);
+					int r2=Integer.parseInt(o2);
+					if(r1==r2)
+						return 0;
+					if(r1>r2)
+						return 1;
+					else
+						return -1;
+					}
+				});
 				table2.getColumns().addAll(column1, column2, column3, column4);
+				//SortedList<RowDb> sorterData2 = new SortedList<>(tabledata);
+				//sorterData2.comparatorProperty().bind(table2.comparatorProperty());
+
+				//table2.setItems(sorterData2);
+				//table2.sort();
+
 				table2.setStyle("-fx-alignment: CENTER-LEFT;");
 				table2.setItems(tabledata);
+				//table2.sort();
 				Scene scene2 = new Scene(new Group());
 				anchopane_table.getChildren().add(table2);
 				((Group) scene2.getRoot()).getChildren().add(anchopane_table);
@@ -477,7 +496,7 @@ public class MainWindowController extends Observable implements Initializable, V
 
 	public void onUpadteTableButton(List<Records> list_records) {
 
-		VBox vbox1 = new VBox();
+
 		Pane anchopane = new AnchorPane();
 		searchField = new TextField();
 		searchField.setPromptText("search levelID/Nickname");
@@ -527,8 +546,37 @@ public class MainWindowController extends Observable implements Initializable, V
 		column2.setCellValueFactory(new PropertyValueFactory<RowDb, String>("LevelID"));
 		TableColumn<RowDb, String> column3 = new TableColumn<>("Steps");
 		column3.setCellValueFactory(new PropertyValueFactory<RowDb, String>("Steps"));
+		column3.setComparator(new Comparator<String>() {
+
+			@Override
+			public int compare(String o1, String o2) {
+			int r1=Integer.parseInt(o1);
+			int r2=Integer.parseInt(o2);
+			if(r1==r2)
+				return 0;
+			if(r1>r2)
+				return 1;
+			else
+				return -1;
+			}
+		});
 		TableColumn<RowDb, String> column4 = new TableColumn<>("Timer");
 		column4.setCellValueFactory(new PropertyValueFactory<RowDb, String>("Timer"));
+		column4.setCellValueFactory(new PropertyValueFactory<RowDb, String>("Timer"));
+		column4.setComparator(new Comparator<String>() {
+
+			@Override
+			public int compare(String o1, String o2) {
+			int r1=Integer.parseInt(o1);
+			int r2=Integer.parseInt(o2);
+			if(r1==r2)
+				return 0;
+			if(r1>r2)
+				return 1;
+			else
+				return -1;
+			}
+		});
 		table.getColumns().addAll(column1, column2, column3, column4);
 		table.setStyle("-fx-alignment: CENTER-LEFT;");
 		table.setItems(data);
