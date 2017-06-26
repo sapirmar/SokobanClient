@@ -37,6 +37,11 @@ public Box() {
 	{
 		return '@';
 	}
+	@Override
+	public char getFirstChar()
+	{
+		return 'B';
+	}
 
 
 

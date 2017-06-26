@@ -1,8 +1,14 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,11 +41,17 @@ import model.policy.MySokobanPolicy;
 
 public class MyModel extends Observable implements Model {
 	private Level2D level;
+	
 
 	// private Level2D level=new Level2D();
 	HashMap<String, ILevelCreator> hm_loader;
 	HashMap<String, IlevelSaverCreator> hm_saver;
 
+	//data members for the server
+	private static final int port = 8787;
+	private static final String ip = "127.0.0.1";
+	
+	
 	public MyModel() {
 		hm_loader = new HashMap<String, ILevelCreator>();
 		hm_saver = new HashMap<String, IlevelSaverCreator>();
@@ -55,7 +67,11 @@ public class MyModel extends Observable implements Model {
 	public Level getCurrentLevel() {
 		return this.level;
 	}
-
+/**
+ * save the level to the output stream 
+ * @param out
+ * @param level
+ */
 	public void Save_txt_Level(OutputStream out, Level2D level2d) throws IOException {
 		new MyTextLevelSaver().SaveLevel(out, level2d);
 
@@ -70,7 +86,10 @@ public class MyModel extends Observable implements Model {
 		new MyObjectSaver().SaveLevel(out, level2d);
 
 	}
-
+/**
+ * move to the direction 
+ * @param String direction
+ */
 	public void move(String direction) {
 		Moveable_Item mi = level.getActors().get(0);
 		String direct;
@@ -107,7 +126,10 @@ public class MyModel extends Observable implements Model {
 		} else
 			System.out.println("can not do the action");
 	}
-
+/**
+ * load the level from the path(filename)
+ * @param string filename the path
+ */
 	@Override
 	public void load_level(String filename) {
 		String type;
@@ -131,7 +153,11 @@ public class MyModel extends Observable implements Model {
 		this.notifyObservers(params);
 
 	}
-
+/**
+ * save the level to the filename(the filename with full path)
+ * @param level 
+ * @param String filename
+ */
 	@Override
 	public void save_level(Level level, String filename) {
 		String type;
@@ -177,5 +203,117 @@ public class MyModel extends Observable implements Model {
 		DbManager<Records> records=new DbManager<Records>();
 		return records.if_exist(table, column, parameter);
 	}
+//changes that we do to mileston5
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * 	send to the server the level we want to solve and get the solution actions ,
+	the string we get tell us if the client want full soultion or just a hint
+	 * @param solution or hint
+	 * @param the delay from command to next command
+	 */
+	public boolean solveFromServer(String solutionOrHint,int delay) throws UnknownHostException, IOException{
+		Socket connectionSocket = new Socket(ip, port);
+		ObjectOutputStream objWriter = new ObjectOutputStream(connectionSocket.getOutputStream());
+		objWriter.writeObject(this.level);//send the level
+		
+		BufferedReader reader = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
+		//String actions = reader.readLine();//get the solution as a string
+		String action="";
+		LinkedList<String> allActionsFromServer=new LinkedList<>();
+		
+		while((action=reader.readLine())!=null){
+			System.out.println(action);////////////////////////////////////////////////////just for test
+			allActionsFromServer.add(action);
+		} 
+		if(allActionsFromServer.size()==0)
+		{
+			System.out.println("there is no solution from server !!!!!!!!!!!");
+			connectionSocket.close();
+			return false;
+		}
+		sendActionsFromSolution(allActionsFromServer, delay,solutionOrHint);
+		connectionSocket.close();
+		return true;
+		
+	}
+	/**
+	 * notify the move command to the controller
+	 * @param action
+	 */
+	public void notifyMoveCommandFromServer(String action){
+		if(action.contains("move up")){
+			LinkedList<String > params=new LinkedList<>();
+			params.add("move");
+			params.add("up");
+			setChanged();
+			notifyObservers(params);
+		}
+		else if(action.contains("move down")){
+			LinkedList<String > params=new LinkedList<>();
+			params.add("move");
+			params.add("down");
+			setChanged();
+			notifyObservers(params);
+		}
+		else if(action.contains("move right")){
+			LinkedList<String > params=new LinkedList<>();
+			params.add("move");
+			params.add("right");
+			setChanged();
+			notifyObservers(params);
+		}
+		else if(action.contains("move left")){
+			LinkedList<String > params=new LinkedList<>();
+			params.add("move");
+			params.add("left");
+			setChanged();
+			notifyObservers(params);
+		}
+		
+	}
+		
+		
+	
+/**
+ * pass the action with delay to the controller 
+ * possible to full solution or just a hint(one step)
+ * @param actions
+ * @param delay
+ * @param solutionOrHint
+ */
+	private void sendActionsFromSolution(LinkedList<String> actions, int delay,String solutionOrHint) {
+		//if he wants hint-give just the first action
+		if(solutionOrHint.equals("hint")){
+		notifyMoveCommandFromServer(actions.get(0));
+		}
+		else{
+		//action example "move up" ,"move down","move up 0"...
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				for (String action : actions) {
+					notifyMoveCommandFromServer(action);
+					try {
+						Thread.sleep(delay);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}
+		}).start();
+	}
+	
+	}
+
+	
+
+	public void setLevel(Level2D level) {
+		this.level = level;
+	}
+	
 
 }

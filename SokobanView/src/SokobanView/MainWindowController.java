@@ -95,6 +95,7 @@ public class MainWindowController extends Observable implements Initializable, V
 	private Media song;
 	final String records = "Records";
 	private TextField searchField;
+	private int countHint=0;
 	Stage stage;
 	ObservableList<RowDb> data;
 	Scene scene;
@@ -179,6 +180,7 @@ public class MainWindowController extends Observable implements Initializable, V
 		show_if_win.set("");
 		if (level != null) {
 			t.cancel();
+			countHint=0;
 			time_count = 0;
 			count = 0;
 			count_steps.set("Steps: " + getCount());
@@ -665,6 +667,44 @@ public class MainWindowController extends Observable implements Initializable, V
 			}
 		});
 
+	}
+	public void warningAlertWindow(String title,String contentText,String header){
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle(title);
+		alert.setContentText(contentText);
+		alert.setHeaderText(header);
+		alert.showAndWait();
+	}
+	public void solution()
+	{
+		if(level==null){
+			
+			warningAlertWindow("Warning", "You are need to load the level before!", null);
+		}else{
+		LinkedList<String> params = new LinkedList<String>();
+		params.add("solution");
+		setChanged();
+		notifyObservers(params);
+		}
+	}
+	public void hint()
+	{
+		if(level==null){
+			warningAlertWindow("Warning", "You are need to load the level before!", null);
+		}else{
+		//hint-just one step
+		if(countHint<1){
+		LinkedList<String> params = new LinkedList<String>();
+		countHint++;
+		params.add("hint");
+		setChanged();
+		notifyObservers(params);
+		}else{
+			warningAlertWindow("Warning", "you are already take your hint ,try by yourself!!", null);	
+			
+			
+		}
+	}
 	}
 
 }

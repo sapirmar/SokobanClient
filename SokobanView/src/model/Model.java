@@ -4,6 +4,7 @@ package model;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.UnknownHostException;
 import java.util.List;
 
 import db.Records;
@@ -22,5 +23,6 @@ public interface Model {
 	public void add_Record(String nickName , String levelId , int timer, int steps);
 	public List<Records> sort_topDb(String sorter , String table, int num);
 	public List<Records> searchOnDb(String table ,String column, String parameter);
+	public boolean solveFromServer(String solutionOrHint,int delay) throws UnknownHostException, IOException;
 
 }

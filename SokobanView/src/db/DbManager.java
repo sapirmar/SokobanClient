@@ -82,6 +82,7 @@ public class DbManager<V> {
 
 	public List<V> if_exist(String table, String column, String parameter) {
 		Session session = factory.openSession();
+		
 		Query query = session.createQuery("FROM " + table + " WHERE " + column + " LIKE " + "'" + parameter + "'");
 		List<V> list = query.list();
 		session.close();

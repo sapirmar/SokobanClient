@@ -8,47 +8,71 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 
-import javafx.beans.Observable;
-
 public class MyClientHandler extends java.util.Observable implements Client_Handler {
-private BufferedReader reader;
-private PrintWriter writer;
-private String command;
-private LinkedList<String> params;
 
-public MyClientHandler() {
-	params = new LinkedList<String>();
-	command = "";
-}
 	@Override
 	public void handleClient(InputStream informClient, OutputStream outToClient) {
-	reader = new BufferedReader(new InputStreamReader(informClient));
-	writer= new PrintWriter(outToClient);
-	writer.print("menu: \n-load+file name\n-save+file name\n-move up/down/right/left \n-exitgame\n ");
-	writer.flush();
-	do{
-	try {
-		command=reader.readLine();
-		String[] arr = command.split(" ");
-		for (String s : arr)
-		{
-			params.add(s);
+		//init streams
+		BufferedReader fromClient = new BufferedReader( new InputStreamReader(informClient));
+		PrintWriter toClient = new PrintWriter(outToClient, true);
+		
+		String input;
+		String output;
+		boolean isStopped=false;
+		
+		while(!isStopped==true){
+			printInstructions(toClient);//print the menu options to the client
+			try {
+				input=fromClient.readLine();
+				String[] command=input.split(" ");
+				
+				switch(command[0])
+				{
+				case "move" : case "load": case "save":{
+					LinkedList<String> params=new LinkedList<>();
+					params.add(command[0]);
+					params.add(command[1]);
+					//update the observer about the new commands
+					setChanged();
+					notifyObservers(params);
+					break;
+				}
+				case "exit":{
+					isStopped=false;
+					LinkedList<String> params=new LinkedList<>();
+					params.add(command[0]);
+					//update the observer about the new commands
+					setChanged();
+					notifyObservers(params);
+					break;
+				}
+				default:{
+					toClient.println("wrong input");
+					break;
+				}
+					
+				}
+				
+				fromClient.close();
+				toClient.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
-		setChanged();
-		notifyObservers(params);
-	} catch (IOException e) {
-		e.printStackTrace();
+		
+	
 	}
-	}while(!command.equals("exitgame"));
-	writer.write("bye");
-	writer.flush();
-	//params.add("exit");
 
-	//setChanged();
-	//notifyObservers(params);
-
-
-
+	public void printInstructions(PrintWriter toClient){
+		toClient.println("MENU: ");
+		toClient.println("'move <up,down,left,right>' ");
+		toClient.println("'load <levelname>'");
+		toClient.println("'save <levelname>'");
+		toClient.println("'exit'");
 	}
+
+
 
 }

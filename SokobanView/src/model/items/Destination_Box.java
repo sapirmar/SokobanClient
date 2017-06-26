@@ -17,6 +17,11 @@ public Destination_Box() {
 	{
 		return 'o';
 	}
+	@Override
+	public char getFirstChar() {
+		// TODO Auto-generated method stub
+		return 'D';
+	}
 
 
 }

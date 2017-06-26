@@ -14,7 +14,10 @@ public class Controller extends Observable{
 	public Controller() {
 		queue=new ArrayBlockingQueue<Command>(10);
 	}
-
+/**
+ * 
+ * @param command  
+  */
 	public void insertCommand(Command command)
 	{
 		try{
@@ -24,6 +27,9 @@ public class Controller extends Observable{
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * function execute all the commands from the blocking queue
+	 */
 	public void start(){
 		thread=new Thread(new Runnable() {
 
@@ -45,6 +51,9 @@ public class Controller extends Observable{
 
 
 	}
+	/**
+	 * stop the thread that execute the commands
+	 */
 	public void stop(){
 		isStopped=true;
 		//thread.stop();

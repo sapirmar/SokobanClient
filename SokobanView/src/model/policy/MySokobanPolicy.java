@@ -45,6 +45,11 @@ public class MySokobanPolicy {
 	public void setLevel(Level2D level) {
 		this.level = level;
 	}
+	/**
+	 * function that check if the move is not forbidden
+	 * @param level
+	 * @return true /false
+	 */
 	//function check if the policy agree the move
 	public Boolean moveByPolicy(Level2D level)
 	{

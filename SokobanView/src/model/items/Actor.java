@@ -15,6 +15,12 @@ public Actor() {
 	{
 		return 'A';
 	}
+	@Override
+	public char getFirstChar()
+	{
+		return 'A';
+	}
+
 
 
 

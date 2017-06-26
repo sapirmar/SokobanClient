@@ -15,4 +15,10 @@ public class Wall extends Items {
 	{
 		return '#';
 	}
+
+	@Override
+	public char getFirstChar() {
+		// TODO Auto-generated method stub
+		return 'W';
+	}
 }

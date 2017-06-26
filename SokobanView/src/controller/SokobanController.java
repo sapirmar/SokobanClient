@@ -9,6 +9,7 @@ import java.util.Observer;
 import controller.command.Command;
 import controller.command.DisplayCommand;
 import controller.command.ExitCommand;
+import controller.command.HintCommand;
 import controller.command.LoadCommand;
 import controller.command.Move_command;
 import controller.command.RecordCommand;
@@ -16,6 +17,7 @@ import controller.command.SaveCommand;
 import controller.command.SearchDbCommand;
 import controller.command.ShowDbCommand;
 import controller.command.ShowTableDifferentWindowCommand;
+import controller.command.SolveCommand;
 import controller.command.SortDbCommand;
 import controller.server.MyServer;
 import view.View;
@@ -30,7 +32,11 @@ public class SokobanController implements Observer {
 	private HashMap<String, Command> commands;
 	LinkedList<String>params;
 	MyServer myserver;
-
+/**
+ * constructor
+ * @param model
+ * @param view
+ */
 	public SokobanController(Model model , View view) {
 	this.model=model;
 	this.view=view;
@@ -40,6 +46,12 @@ public class SokobanController implements Observer {
 
 
 	}
+	/**
+	 * constructor with remote client
+	 * @param model
+	 * @param view
+	 * @param myserver
+	 */
 	public SokobanController(Model model ,View view,MyServer myserver) {
 	//this.controller=new Controller();
 	this.model=model;
@@ -49,12 +61,20 @@ public class SokobanController implements Observer {
 
 
 	//this.controller=controller;
-	myserver.start();
-	this.controller.start();
+	try {
+		myserver.start();
+		this.controller.start();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
 
 	}
 
-
+/**
+ * initial the commands map
+ */
 	protected void initCommands(){
 		this.controller=new Controller();
 		commands=new HashMap<String,Command>();
@@ -69,6 +89,8 @@ public class SokobanController implements Observer {
 		commands.put("showdb", new ShowDbCommand(view));
 		commands.put("tablewindow",new ShowTableDifferentWindowCommand(view, model));
 		commands.put("searchdb", new SearchDbCommand(model,view));
+		commands.put("solution", new SolveCommand(model));
+		commands.put("hint", new HintCommand(model));
 	}
 
 

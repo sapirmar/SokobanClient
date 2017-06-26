@@ -37,5 +37,7 @@ public abstract class Items implements Serializable{
 	{
 		return '*';
 	}
+	public abstract char getFirstChar();
+	
 
 }
